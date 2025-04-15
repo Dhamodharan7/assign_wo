@@ -59,6 +59,7 @@ def generate_eval_images():
 
     print('~-'*5, 'Ericsson 6160 - Installation', '~-'*5)
     for item in ericsson : 
+        print(item)
         print(item.split('\\')[1], end = ':')
         if '_valid-meta' in item.split('\\')[1] : 
             valid_update = modify_valid_metadata(item)
