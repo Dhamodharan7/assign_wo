@@ -1,31 +1,34 @@
 import streamlit as st
+from create_wo import create_wo_ui
+from generate_eval import generate_eval_ui
+
+# Set page configuration with a custom favicon (emoji or file)
+st.set_page_config(
+    page_title="FTA Workorder Management",
+    page_icon="🛠️",  # You can also use: "favicon.png"
+    layout="wide"
+)
 
 # App title
 st.markdown("<h1 style='text-align: center; color: steelblue;'>FTA Workorder Management</h1>", unsafe_allow_html=True)
 st.markdown("---")
 
 # Top menu tabs
-tab1, tab2, tab3 = st.tabs([
+tab1, tab2, tab3, tab4 = st.tabs([
     "✅ Create Work Order", 
     "🔄 Update Work Order", 
+    "❌ Delete Work Order", 
     "🖼️ Generate Evaluation Images"
 ])
 
-# Tab: Create Work Order
+# Tab 1: Create Work Order
 with tab1:
-    st.title("✅ Create Work Order")
-    
-    work_order_id = st.text_input("Work Order ID")
-    description = st.text_area("Description")
-    assigned_to = st.text_input("Assigned To")
-    due_date = st.date_input("Due Date")
-    
-    if st.button("Create"):
-        st.success(f"Work Order '{work_order_id}' created successfully!")
+    # Generate UI
+    create_wo_ui()
 
-# Tab: Update Work Order
+# Tab 2: Update Work Order
 with tab2:
-    st.title("🔄 Update Work Order")
+    st.header("🔄 Update Work Order")
     
     existing_id = st.text_input("Enter Existing Work Order ID")
     new_status = st.selectbox("Update Status", ["Pending", "In Progress", "Completed", "On Hold"])
@@ -34,15 +37,17 @@ with tab2:
     if st.button("Update"):
         st.success(f"Work Order '{existing_id}' updated to '{new_status}' status.")
 
-# Tab: Generate Evaluation Images
+# Tab 3: Delete Work Order
 with tab3:
-    st.title("🖼️ Generate Evaluation Images")
+    st.header("❌ Delete Work Order")
     
-    uploaded_file = st.file_uploader("Upload an image", type=["jpg", "jpeg", "png"])
+    delete_id = st.text_input("Enter Work Order ID to Delete")
     
-    if uploaded_file is not None:
-        st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
-        if st.button("Generate Evaluation"):
-            st.info("🔄 Processing...")
-            # Placeholder for actual image evaluation logic
-            st.success("✅ Evaluation image generated!")
+    if st.button("Delete"):
+        # Placeholder: Add actual deletion logic here
+        st.warning(f"Work Order '{delete_id}' deleted successfully!")
+
+# Tab 4: Generate Evaluation Images
+with tab4:
+    
+    generate_eval_ui()
