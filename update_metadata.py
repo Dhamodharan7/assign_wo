@@ -6,6 +6,7 @@ import datetime
 import piexif.helper
 import geopy.distance
 from datetime import date
+import logging
 
 addressList = [{"address": "4823 Oak Meadow Dr, Houston, TX 77018",
                 "map": "https://feldtchaspstg01.blob.core.windows.net/fta-images/maps/houston.png"},
@@ -50,6 +51,7 @@ def modify_valid_metadata(imagePath) :
     random_time=datetime.timedelta(seconds=random_seconds)
     order_time = str(random_time).replace(':' + str(random_time).split(':')[-1], '')
     order_date = str(date.today())
+    logging.info(order_date)
     
     generated_coordinates_1 = random.uniform(33.0155, 33.0175)
     generated_coordinates_2 = random.uniform(-96.6955, -96.6935)
