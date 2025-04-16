@@ -49,9 +49,9 @@ def zip_download_images():
         
 def generate_eval_images():
     parentfolder = 'FTA Evaluation Image'
-    viavifoldername = parentfolder + '/' + 'Viavi Installation evaluation image'
-    juniperfoldername = parentfolder + '/' + 'Troubleshooting Evaluation Image'
-    ericssonfoldername = parentfolder + '/' + 'Installation Evaluation Image'
+    viavifoldername = os.path.join(parentfolder, 'Viavi Installation evaluation image')
+    juniperfoldername = os.path.join(parentfolder, 'Troubleshooting Evaluation Image')
+    ericssonfoldername = os.path.join(parentfolder, 'Installation Evaluation Image')
 
     viavi = glob.glob(viavifoldername + '/valid/*.jpeg') + glob.glob(viavifoldername + '/invalid/*.jpeg')
     juniper = glob.glob(juniperfoldername + '/valid/*.jpeg') + glob.glob(juniperfoldername + '/invalid/*.jpeg')
