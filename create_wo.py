@@ -206,8 +206,8 @@ def available_time_slots(api_url, email_id, operation_type):
     for wo in work_orders:
         if wo.get("Order_Start_Time") in order_start_time:
             index = order_start_time.index(wo.get("Order_Start_Time"))
-            order_start_time.remove(index)
-            order_due_time.remove(index)
+            order_start_time.pop(index)
+            order_due_time.pop(index)
     for count, ele in enumerate(order_start_time):
         av_slot.append(order_start_time[count] + "-" + order_due_time[count])
     return av_slot
