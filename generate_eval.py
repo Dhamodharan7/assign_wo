@@ -59,29 +59,29 @@ def generate_eval_images():
     print(ericsson)
     print('~-'*5, 'Ericsson 6160 - Installation', '~-'*5)
     for item in ericsson : 
-        print(item.split('\\')[1], end = ':')
-        if '_valid-meta' in item.split('\\')[1] : 
+        print(item.split('\\')[-1], end = ':')
+        if '_valid-meta' in item.split('\\')[-1] : 
             valid_update = modify_valid_metadata(item)
             print(valid_update['status'])
-        if '_invalid-meta' in item.split('\\')[1] : 
+        if '_invalid-meta' in item.split('\\')[-1] : 
             invalid_update = modify_invalid_metadata(item)
             print(invalid_update['status'])
     print('\n'+'~-'*5, 'Juniper Ex4300 - Troubleshooting', '~-'*5)
     for item in juniper : 
-        print(item.split('\\')[1], end = ':')
-        if '_valid-meta' in item.split('\\')[1] : 
+        print(item.split('\\')[-1], end = ':')
+        if '_valid-meta' in item.split('\\')[-1] : 
             valid_update = modify_valid_metadata(item)
             print(valid_update['status'])
-        if '_invalid-meta' in item.split('\\')[1] : 
+        if '_invalid-meta' in item.split('\\')[-1] : 
             invalid_update = modify_invalid_metadata(item)
             print(invalid_update['status'])
     print('\n'+'~-'*5, 'Viavi 4G & 5G - Installation', '~-'*5)
     for item in viavi : 
-        print(item.split('\\')[1], end = ':')
-        if '_valid-meta' in item.split('\\')[1] : 
+        print(item.split('\\')[-1], end = ':')
+        if '_valid-meta' in item.split('\\')[-1] : 
             valid_update = modify_valid_metadata(item)
             print(valid_update['status'])
-        if '_invalid-meta' in item.split('\\')[1] : 
+        if '_invalid-meta' in item.split('\\')[-1] : 
             invalid_update = modify_invalid_metadata(item)
             print(invalid_update['status'])
     print('~-'*25)
