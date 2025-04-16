@@ -48,40 +48,50 @@ def zip_download_images():
     )
         
 def generate_eval_images():
-    parentfolder = 'FTA Evaluation Image'
-    viavifoldername = parentfolder + '/' + 'Viavi Installation evaluation image'
-    juniperfoldername = parentfolder + '/' + 'Troubleshooting Evaluation Image'
-    ericssonfoldername = parentfolder + '/' + 'Installation Evaluation Image'
+    base_dir = os.path.dirname(os.path.abspath(__file__))  # current file's directory
+    parentfolder = os.path.join(base_dir, 'FTA Evaluation Image')
 
-    viavi = glob.glob(viavifoldername + '/valid/*.jpeg') + glob.glob(viavifoldername + '/invalid/*.jpeg')
-    juniper = glob.glob(juniperfoldername + '/valid/*.jpeg') + glob.glob(juniperfoldername + '/invalid/*.jpeg')
-    ericsson = glob.glob(ericssonfoldername + '/valid/*.jpeg') + glob.glob(ericssonfoldername + '/invalid/*.jpeg')
-    print(ericsson)
+    viavifoldername = os.path.join(parentfolder, 'Viavi Installation evaluation image')
+    juniperfoldername = os.path.join(parentfolder, 'Troubleshooting Evaluation Image')
+    ericssonfoldername = os.path.join(parentfolder, 'Installation Evaluation Image')
+
+    viavi = glob.glob(os.path.join(viavifoldername, 'valid', '*.jpeg')) + \
+        glob.glob(os.path.join(viavifoldername, 'invalid', '*.jpeg'))
+
+    juniper = glob.glob(os.path.join(juniperfoldername, 'valid', '*.jpeg')) + \
+            glob.glob(os.path.join(juniperfoldername, 'invalid', '*.jpeg'))
+
+    ericsson = glob.glob(os.path.join(ericssonfoldername, 'valid', '*.jpeg')) + \
+            glob.glob(os.path.join(ericssonfoldername, 'invalid', '*.jpeg'))
+
     print('~-'*5, 'Ericsson 6160 - Installation', '~-'*5)
     for item in ericsson : 
-        print(item.split('\\')[-1], end = ':')
-        if '_valid-meta' in item.split('\\')[-1] : 
+        filename = os.path.basename(item)  # ✅ works on all OSes
+        print(filename, end = ':')
+        if '_valid-meta' in filename : 
             valid_update = modify_valid_metadata(item)
             print(valid_update['status'])
-        if '_invalid-meta' in item.split('\\')[-1] : 
+        if '_invalid-meta' in filename : 
             invalid_update = modify_invalid_metadata(item)
             print(invalid_update['status'])
     print('\n'+'~-'*5, 'Juniper Ex4300 - Troubleshooting', '~-'*5)
     for item in juniper : 
-        print(item.split('\\')[-1], end = ':')
-        if '_valid-meta' in item.split('\\')[-1] : 
+        filename = os.path.basename(item)  # ✅ works on all OSes
+        print(filename, end = ':')
+        if '_valid-meta' in filename : 
             valid_update = modify_valid_metadata(item)
             print(valid_update['status'])
-        if '_invalid-meta' in item.split('\\')[-1] : 
+        if '_invalid-meta' in filename : 
             invalid_update = modify_invalid_metadata(item)
             print(invalid_update['status'])
     print('\n'+'~-'*5, 'Viavi 4G & 5G - Installation', '~-'*5)
     for item in viavi : 
-        print(item.split('\\')[-1], end = ':')
-        if '_valid-meta' in item.split('\\')[-1] : 
+        filename = os.path.basename(item)  # ✅ works on all OSes
+        print(filename, end = ':')
+        if '_valid-meta' in filename : 
             valid_update = modify_valid_metadata(item)
             print(valid_update['status'])
-        if '_invalid-meta' in item.split('\\')[-1] : 
+        if '_invalid-meta' in filename : 
             invalid_update = modify_invalid_metadata(item)
             print(invalid_update['status'])
     print('~-'*25)
