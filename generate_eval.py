@@ -17,7 +17,7 @@ def generate_eval_ui():
         if "@accenture" in email.strip():
             generate_eval_images()
             zip_download_images()
-            # st.success(f"✅ Evaluation images will be sent to {email}")
+            st.success(f"✅ Evaluation images generated for today. Please download it!")
             # Your image generation or backend API call logic here
         else:
             st.warning("⚠️ Please enter an valid email ID before generating.")
