@@ -3,7 +3,7 @@ import requests
 from datetime import datetime, timedelta, timezone
 
 def update_wo_ui():
-    st.header("🔄 Update Work Order")
+    st.header("🔄 Re-assign Work Order")
     generic_api = "https://fieldtechmiddlewaredemo.azurewebsites.net/api/fta_middleware_generic_api"
     env = st.radio("Create work order on", ["Local", "Prod"], horizontal=True, key="env_radio2")
     if env == "Prod":
