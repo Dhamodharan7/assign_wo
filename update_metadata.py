@@ -7,7 +7,7 @@ import piexif.helper
 import geopy.distance
 from datetime import date
 import logging
-import streamlit as st
+from datetime import datetime, timedelta, timezone
 
 logging.basicConfig(
     filename="streamlit_app.log",
@@ -57,7 +57,15 @@ def modify_valid_metadata(imagePath) :
     random_seconds=random.randint(start.total_seconds(),end.total_seconds())
     random_time=datetime.timedelta(seconds=random_seconds)
     order_time = str(random_time).replace(':' + str(random_time).split(':')[-1], '')
-    order_date = str(date.today())
+    # Define IST timezone (UTC+5:30)
+    IST = timezone(timedelta(hours=5, minutes=30))
+
+    # Get current datetime in IST
+    now_ist = datetime.now(IST)
+
+    # Extract date and convert to string
+    order_date = str(now_ist.date())
+    # order_date = str(date.today())
     logging.info(f"Order Date::{order_date}")
     
     generated_coordinates_1 = random.uniform(33.0155, 33.0175)
