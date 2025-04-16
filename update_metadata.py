@@ -7,6 +7,7 @@ import piexif.helper
 import geopy.distance
 from datetime import date
 import logging
+import streamlit as st
 
 addressList = [{"address": "4823 Oak Meadow Dr, Houston, TX 77018",
                 "map": "https://feldtchaspstg01.blob.core.windows.net/fta-images/maps/houston.png"},
@@ -41,6 +42,7 @@ def fetch_metadata(filename) :
     return metadata
 
 def modify_valid_metadata(imagePath) :    
+    log_box = st.empty()
     order_timeslot_selected = order_timeslots[0] # random.choice(order_timeslots)
     start_time = order_timeslot_selected[0]
     end_time = order_timeslot_selected[1]
@@ -51,7 +53,7 @@ def modify_valid_metadata(imagePath) :
     random_time=datetime.timedelta(seconds=random_seconds)
     order_time = str(random_time).replace(':' + str(random_time).split(':')[-1], '')
     order_date = str(date.today())
-    logging.info(order_date)
+    log_box.text(f"Order Date::{order_date}")
     
     generated_coordinates_1 = random.uniform(33.0155, 33.0175)
     generated_coordinates_2 = random.uniform(-96.6955, -96.6935)
