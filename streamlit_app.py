@@ -1,6 +1,8 @@
 import streamlit as st
 from create_wo import create_wo_ui
 from generate_eval import generate_eval_ui
+from delete_wo import delete_wo_ui
+from update_wo import update_wo_ui
 
 # Set page configuration with a custom favicon (emoji or file)
 st.set_page_config(
@@ -28,24 +30,12 @@ with tab1:
 
 # Tab 2: Update Work Order
 with tab2:
-    st.header("🔄 Update Work Order")
-    
-    existing_id = st.text_input("Enter Existing Work Order ID")
-    new_status = st.selectbox("Update Status", ["Pending", "In Progress", "Completed", "On Hold"])
-    remarks = st.text_area("Remarks")
-    
-    if st.button("Update"):
-        st.success(f"Work Order '{existing_id}' updated to '{new_status}' status.")
+    update_wo_ui()
 
 # Tab 3: Delete Work Order
 with tab3:
-    st.header("❌ Delete Work Order")
-    
-    delete_id = st.text_input("Enter Work Order ID to Delete")
-    
-    if st.button("Delete"):
-        # Placeholder: Add actual deletion logic here
-        st.warning(f"Work Order '{delete_id}' deleted successfully!")
+    # Delete Work order UI
+    delete_wo_ui()
 
 # Tab 4: Generate Evaluation Images
 with tab4:

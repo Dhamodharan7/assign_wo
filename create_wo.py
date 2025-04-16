@@ -11,7 +11,7 @@ def create_wo_ui():
     device_ids = device_ids + get_all_key("id", generic_api)
     operation_type = ""
     
-    env = st.radio("Create work order on", ["Local", "Prod"], horizontal=True)
+    env = st.radio("Create work order on", ["Local", "Prod"], horizontal=True, key="env_radio1")
     if env == "Prod":
         generic_api = "https://fieldtechmiddleware.azurewebsites.net/api/fta_middleware_generic_api"
     email_id = st.text_input("Assign to(Email-Id)")
