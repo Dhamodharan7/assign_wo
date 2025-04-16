@@ -57,6 +57,7 @@ def generate_eval_images():
     juniper = glob.glob(juniperfoldername + '/valid/*.jpeg') + glob.glob(juniperfoldername + '/invalid/*.jpeg')
     ericsson = glob.glob(ericssonfoldername + '/valid/*.jpeg') + glob.glob(ericssonfoldername + '/invalid/*.jpeg')
 
+    print(ericsson)
     print('~-'*5, 'Ericsson 6160 - Installation', '~-'*5)
     for item in ericsson : 
         print(item)
