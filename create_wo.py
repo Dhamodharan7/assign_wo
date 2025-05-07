@@ -16,7 +16,9 @@ def create_wo_ui():
     if env == "Prod":
         generic_api = "https://fieldtechmiddleware.azurewebsites.net/api/fta_middleware_generic_api"
     elif env == "Custom":
-        generic_api = st.text_input("Enter Custom API URL", value=generic_api) # added a text input
+        function_app_name = st.text_input("Enter Function App name", value="") # added a text input
+        if function_app_name:
+            generic_api = f"https://{function_app_name}.azurewebsites.net/api/fta_middleware_generic_api"
         
     # Enter Operation type
     operation_type = st.selectbox("Operation type", ["installation", "troubleshooting"])

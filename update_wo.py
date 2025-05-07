@@ -9,7 +9,9 @@ def update_wo_ui():
     if env == "Prod":
         generic_api = "https://fieldtechmiddleware.azurewebsites.net/api/fta_middleware_generic_api"
     elif env == "Custom":
-        generic_api = st.text_input("Enter Custom API URL", value=generic_api) # added a text input
+        function_app_name = st.text_input("Enter Function App name", value="") # added a text input
+        if function_app_name:
+            generic_api = f"https://{function_app_name}.azurewebsites.net/api/fta_middleware_generic_api"
     
     existing_id = st.text_input("Enter Existing Work Order ID")
     assign_to = st.text_input("Re-assign Existing Work Order To")
