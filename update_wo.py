@@ -5,9 +5,11 @@ from datetime import datetime, timedelta, timezone
 def update_wo_ui():
     st.header("🔄 Re-assign Work Order")
     generic_api = "https://fieldtechmiddlewaredemo.azurewebsites.net/api/fta_middleware_generic_api"
-    env = st.radio("Create work order on", ["Local", "Prod"], horizontal=True, key="env_radio2")
+    env = st.radio("Create work order on", ["Local", "Prod", "Custom"], horizontal=True, key="env_radio2")
     if env == "Prod":
         generic_api = "https://fieldtechmiddleware.azurewebsites.net/api/fta_middleware_generic_api"
+    elif env == "Custom":
+        generic_api = st.text_input("Enter Custom API URL", value=generic_api) # added a text input
     
     existing_id = st.text_input("Enter Existing Work Order ID")
     assign_to = st.text_input("Re-assign Existing Work Order To")

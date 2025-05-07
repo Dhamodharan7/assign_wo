@@ -12,9 +12,11 @@ def create_wo_ui():
     available_slots = ["None"]
     operation_type = ""
     
-    env = st.radio("Create work order on", ["Local", "Prod"], horizontal=True, key="env_radio1")
+    env = st.radio("Create work order on", ["Local", "Prod", "Custom"], horizontal=True, key="env_radio1")
     if env == "Prod":
         generic_api = "https://fieldtechmiddleware.azurewebsites.net/api/fta_middleware_generic_api"
+    elif env == "Custom":
+        generic_api = st.text_input("Enter Custom API URL", value=generic_api) # added a text input
         
     # Enter Operation type
     operation_type = st.selectbox("Operation type", ["installation", "troubleshooting"])

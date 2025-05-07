@@ -31,9 +31,11 @@ def delete_wo_ui():
     st.header("❌ Delete Work Order")
 
     # Step 1: Choose environment
-    env = st.radio("Create work order on", ["Local", "Prod"], horizontal=True, key="env_radio3")
+    env = st.radio("Create work order on", ["Local", "Prod", "Custom"], horizontal=True, key="env_radio3")
     if env == "Prod":
         generic_api = "https://fieldtechmiddleware.azurewebsites.net/api/fta_middleware_generic_api"
+    elif env == "Custom":
+        generic_api = st.text_input("Enter Custom API URL", value=generic_api) # added a text input
 
     # Step 2: Email input
     email_id = st.text_input("Enter your Email Id")
