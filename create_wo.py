@@ -11,13 +11,15 @@ def create_wo_ui():
     device_ids = ["None"]
     available_slots = ["None"]
     operation_type = ""
+    storage_account_name = ""
     
     env = st.radio("Create work order on", ["Local", "Prod", "Custom"], horizontal=True, key="env_radio1")
     if env == "Prod":
         generic_api = "https://fieldtechmiddleware.azurewebsites.net/api/fta_middleware_generic_api"
     elif env == "Custom":
         function_app_name = st.text_input("Enter Function App name", value="") # added a text input
-        if function_app_name:
+        storage_account_name = st.text_input("Enter Storage account name", value="") # added a text input
+        if function_app_name and storage_account_name:
             generic_api = f"https://{function_app_name}.azurewebsites.net/api/fta_middleware_generic_api"
         
     # Enter Operation type
@@ -61,7 +63,7 @@ def create_wo_ui():
             st.warning(f"Please select valid device id")
         else:
             device_id = device_id.split("-")[0].strip()
-            response = create_work_order(generic_api, email_id, device_id, operation_type, order_start_time, order_due_time)
+            response = create_work_order(generic_api, email_id, device_id, operation_type, order_start_time, order_due_time, storage_account_name)
             print(response)
             if "uccess" in response:
                 st.success(f"Work Order for '{email_id}' created successfully!")
@@ -70,9 +72,9 @@ def create_wo_ui():
 
 
         
-def create_work_order(api_url, email_id, device_id, operation_type, order_start_time, order_due_time):
+def create_work_order(api_url, email_id, device_id, operation_type, order_start_time, order_due_time, storage_account_name):
     Order_Assigned_Time, Order_Scheduled_Time = get_assigned_time_and_scheduled_time()
-    address, site, map_loc = get_random_site_and_address()
+    address, site, map_loc = get_random_site_and_address(storage_account_name)
     device_detail = get_device_info(api_url, device_id)[0]
     source_doc = device_detail.get("source_doc", "")
     work_order_default = {
@@ -216,47 +218,48 @@ def available_time_slots(api_url, email_id, operation_type):
         av_slot.append(order_start_time[count] + "-" + order_due_time[count])
     return av_slot
 
-def get_random_site_and_address():
+def get_random_site_and_address(storage_account_name):
+    storage_account_name = storage_account_name if storage_account_name else "feldtchaspstg01"
     Order_Address_maps = [
   {
       "address": "4823 Oak Meadow Dr, Houston, TX 77018",
-      "map": "https://feldtchaspstg01.blob.core.windows.net/fta-images/maps/houston.png"
+      "map": f"https://{storage_account_name}.blob.core.windows.net/fta-images/maps/houston.png"
   },
   {
       "address": "7831 Sunset Trail, Austin, TX 78745",
-      "map": "https://feldtchaspstg01.blob.core.windows.net/fta-images/maps/austin.png"
+      "map": f"https://{storage_account_name}.blob.core.windows.net/fta-images/maps/austin.png"
   },
   {
       "address": "6245 Bluebonnet Ln, Dallas, TX 75209",
-      "map": "https://feldtchaspstg01.blob.core.windows.net/fta-images/maps/dallas.png"
+      "map": f"https://{storage_account_name}.blob.core.windows.net/fta-images/maps/dallas.png"
   },
   {
       "address": "3902 Lone Star Pkwy, San Antonio, TX 78253",
-      "map": "https://feldtchaspstg01.blob.core.windows.net/fta-images/maps/san-antonio.png"
+      "map": f"https://{storage_account_name}.blob.core.windows.net/fta-images/maps/san-antonio.png"
   },
   {
       "address": "2184 Prairie Rose St, El Paso, TX 79938",
-      "map": "https://feldtchaspstg01.blob.core.windows.net/fta-images/maps/el-paso.png"
+      "map": f"https://{storage_account_name}.blob.core.windows.net/fta-images/maps/el-paso.png"
   },
   {
       "address": "1109 Brady Ridge Dr, Round Rock, TX 78681",
-      "map": "https://feldtchaspstg01.blob.core.windows.net/fta-images/maps/round-rock.png"
+      "map": f"https://{storage_account_name}.blob.core.windows.net/fta-images/maps/round-rock.png"
   },
   {
       "address": "3571 Silver Creek Dr, Arlington, TX 76016",
-      "map": "https://feldtchaspstg01.blob.core.windows.net/fta-images/maps/arlington.png"
+      "map": f"https://{storage_account_name}.blob.core.windows.net/fta-images/maps/arlington.png"
   },
   {
       "address": "9214 Pecan Grove Ln, Corpus Christi, TX 78410",
-      "map": "https://feldtchaspstg01.blob.core.windows.net/fta-images/maps/corpus-christi.png"
+      "map": f"https://{storage_account_name}.blob.core.windows.net/fta-images/maps/corpus-christi.png"
   },
   {
       "address": "7401 Westwind Blvd, Lubbock, TX 79424",
-      "map": "https://feldtchaspstg01.blob.core.windows.net/fta-images/maps/lubbock.png"
+      "map": f"https://{storage_account_name}.blob.core.windows.net/fta-images/maps/lubbock.png"
   },
   {
       "address": "4501 Tejas Trail, Austin, TX 78745",
-      "map": "https://feldtchaspstg01.blob.core.windows.net/fta-images/maps/austin1.png"
+      "map": f"https://{storage_account_name}.blob.core.windows.net/fta-images/maps/austin1.png"
   }
 ]
     random_address_map = random.choice(Order_Address_maps)
